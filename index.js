@@ -35,7 +35,7 @@ app.get("/api/domain", async (req, res) => {
   if (ipAddress === "::1" || ipAddress === "127.0.0.1") {
     try {
       const getHTMLCSS = await axios.get(
-        `https://testing.hikalcrm.com/api/page-templates/52
+        `https://testing.hikalcrm.com/api/page-templates/48
         `,
         {
           headers: {
@@ -45,8 +45,6 @@ app.get("/api/domain", async (req, res) => {
           },
         }
       );
-
-      //   console.log("response:::::::::: ", getHTMLCSS?.data);
 
       const html = decompressData(getHTMLCSS?.data?.data?.page_template?.html);
       const css = decompressData(getHTMLCSS?.data?.data?.page_template?.css);
