@@ -6,7 +6,7 @@ const app = express();
 app.get("/api/domain", async (req, res) => {
   // Make the function async
   console.log("req :::", req);
-  console.log("req headers:::", req.headers);
+  //   console.log("req headers:::", req.headers);
   console.log("domain:::", req.hostname);
   console.log("ip address", req.ip);
 
@@ -17,12 +17,23 @@ app.get("/api/domain", async (req, res) => {
     // Handle both IPv6 and IPv4 localhost
     try {
       // Use await and include the protocol in the URL
+      //   const getHTMLCSS = await axios.get(
+      //     `http://testing.hikalcrm.com/${domain}`
+      //   );
       const getHTMLCSS = await axios.get(
-        `http://testing.hikalcrm.com/${domain}`
+        `https://testing.hikalcrm.com/api/page-templates/52
+        `,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer " + "58|lh59e3Ec9gHgAvpmnRVTworRSNChA1ZoGLPaetgL8557c82d",
+          },
+        }
       );
 
       const data = {
-        htmlCSS: getHTMLCSS,
+        htmlCSS: getHTMLCSS.data,
         domain: domain,
         ipAddress: ipAddress,
       };
@@ -35,7 +46,7 @@ app.get("/api/domain", async (req, res) => {
       console.log("Error: ", error);
       return res
         .status(500)
-        .json({ data: error.message, message: "An error occurred." }); // Send only the error message
+        .json({ data: error, message: "An error occurred." }); // Send only the error message
     }
   } else {
     return res.status(500).json({ error: "IP address does not match" }); // Corrected typo
