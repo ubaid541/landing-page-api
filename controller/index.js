@@ -41,7 +41,11 @@ const fetchLandingPage = (con, domain, res) => {
       console.log("no domains found: ", result);
       res
         .status(404)
-        .json({ data: result, message: "No data found with this domain" });
+        .json({
+          data: result,
+          domain: domain,
+          message: "No data found with this domain",
+        });
     }
   });
 };
